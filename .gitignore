@@ -1,0 +1,59 @@
+# ======================================
+# Visual Studio
+# ======================================
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+
+# ======================================
+# Build output
+# ======================================
+x64/
+x86/
+Debug/
+Release/
+bin/
+obj/
+out/
+
+# Ignore if build-check is generated
+# build-check/
+
+# ======================================
+# C++ compilation artifacts
+# ======================================
+*.obj
+*.o
+*.pch
+*.pdb
+*.ipch
+*.idb
+*.ilk
+*.tlog
+*.lastbuildstate
+*.iobj
+*.ipdb
+
+# ======================================
+# Generated executables
+# ======================================
+*.exe
+
+# ======================================
+# Logs and temporary files
+# ======================================
+*.log
+*.tmp
+*.temp
+*.cache
+
+# ======================================
+# OS files
+# ======================================
+.DS_Store
+Thumbs.db
+desktop.ini
