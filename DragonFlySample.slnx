@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="DragonflySample/DragonflySample.vcxproj" Id="cf21a561-9053-4d8c-894d-16f270953f13" />
+</Solution>
