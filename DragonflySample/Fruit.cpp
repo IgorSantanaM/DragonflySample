@@ -5,6 +5,7 @@
 // Engine includes.
 #include "EventCollision.h"
 #include "EventOut.h"
+#include "EventView.h"
 #include "GameManager.h"
 #include "LogManager.h"
 #include "WorldManager.h"
@@ -12,7 +13,9 @@
 // Game includes.
 #include "game.h"
 #include "Fruit.h"
+#include "Points.h"
 #include "Sword.h"
+#include "util.h"
 
 // Constructor - supply name of Fruit (matches Sprite).
 Fruit::Fruit(std::string name) {
@@ -48,6 +51,10 @@ int Fruit::out(const df::EventOut* p_e) {
         return 1;
     }
 
+    // Each out is a "miss", so lose points.
+    df::EventView ev(POINTS_STRING, -25, true);
+    WM.onEvent(&ev);
+
     // Destroy this Fruit.
     WM.markForDelete(this);
 
@@ -60,6 +67,10 @@ int Fruit::collide(const df::EventCollision* p_e) {
 
     // Sword collision means ninja sliced this Fruit.
     if (p_e->getObject1()->getType() == SWORD_STRING) {
+
+        // Add points.
+        df::EventView ev(POINTS_STRING, +10, true);
+        WM.onEvent(&ev);
 
         // Destroy this Fruit.
         WM.markForDelete(this);
@@ -78,6 +89,10 @@ Fruit::~Fruit() {
         GM.getGameOver() == false) {
         df::explode(getAnimation().getSprite(), getAnimation().getIndex(), getPosition(),
             EXPLOSION_AGE, EXPLOSION_SPEED, EXPLOSION_ROTATE);
+
+        // Play "splat" sound.
+        std::string sound = "splat-" + std::to_string(rand() % 6 + 1);
+        play_sound(sound);
     }
 }
 

@@ -23,6 +23,11 @@ const int EXPLOSION_AGE = 45;        // in ticks
 const float EXPLOSION_SPEED = 0.05f; // in spaces/tick
 const float EXPLOSION_ROTATE = 1.0f; // in degrees
 
+// Sound settings.
+const int NUM_SPLATS = 6;
+const int NUM_SWIPES = 7;
+const int NUM_KUDOS = 10;
+
 // Wave settings.
 const int NUM_WAVES = NUM_FRUITS;
 const int WAVE_LEN = 300;      // in ticks
