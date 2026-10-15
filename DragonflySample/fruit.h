@@ -1,21 +1,43 @@
-#pragma once
-#include "GameManager.h"
-#include <EventOut.h>
-#include <EventCollision.h>
+//
+// Fruit.h
+//
+
+#ifndef FRUIT_H
+#define FRUIT_H
+
+// System includes.
+#include <string>
+
+// Engine includes.
+#include "Event.h"
+#include "EventCollision.h"
+#include "EventOut.h"
+#include "Object.h"
+
 class Fruit : public df::Object {
-	private:
-		bool m_first_out;
 
-		int out(const df::EventOut *p_e);
+private:
+	bool m_first_out;
 
-		int collide(const df::EventCollision *p_e);
+	// Handle out events.
+	int out(const df::EventOut* p_e);
 
-	public:
-		Fruit(std::string name);
+	// Handle collision events.
+	int collide(const df::EventCollision* p_e);
 
-		~Fruit();
+public:
 
-		int eventHandler(const df::Event *p_e) override;
+	// Constructor - supply name of Fruit (matches Sprite).
+	Fruit(std::string name);
 
-		void start(float speed);
+	// Destructor - if inside the game world, create explosion.
+	~Fruit();
+
+	// Handle events.
+	int eventHandler(const df::Event* p_e) override;
+
+	// Setup starting conditions.
+	void start(float speed);
 };
+
+#endif // FRUIT_H

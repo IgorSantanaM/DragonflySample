@@ -1,34 +1,47 @@
+//
+// game.cpp - Fruit Ninja
+// 
+
+// Engine includes.
 #include "GameManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
 #include "WorldManager.h"
+#include "utility.h"
 
-#include "fruit.h"
+// Game includes.
 #include "game.h"
-#include "sword.h"
 #include "util.h"
 
+///////////////////////////////////////////////
 int main(int argc, char* argv[]) {
 
+    // Start up game manager.
     if (GM.startUp()) {
         LM.writeLog("Error starting game manager!");
         GM.shutDown();
         return 0;
     }
 
+    // Setup logging.
     LM.setFlush(true);
     LM.setLogLevel(1);
     LM.writeLog("Fruit Ninja (v%.1f)", VERSION);
 
-    df::splash();
+    // Load resources.
     loadResources();
 
-    Fruit* p_f = new Fruit(FRUIT[rand() % NUM_FRUITS]);
-    p_f->start(0.25f);
+    // Dragonfly splash screen.
+    df::splash();
+
+    // Create initial game objects.
+    populateWorld();
 
     GM.run();
 
+    // Shut everything down.
     GM.shutDown();
 
+    // All is well.
     return 0;
 }
