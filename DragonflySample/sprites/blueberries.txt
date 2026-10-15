@@ -1,0 +1,25 @@
+<HEADER>
+frames 2
+width 6
+height 5
+color cyan
+slowdown 7
+transparency " "
+</HEADER>
+<BODY>
+ oo   
+o ooo 
+ oo o 
+ o oo 
+  oo  
+end
+ oo   
+o o o 
+ oo o 
+o  oo 
+  oo  
+end
+</BODY>
+<FOOTER>
+version 1
+</FOOTER>

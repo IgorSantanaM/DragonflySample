@@ -134,13 +134,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Fruit.cpp" />
+    <ClCompile Include="fruit.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="grocer.cpp" />
+    <ClCompile Include="sword.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fruit.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="grocer.h" />
     <ClInclude Include="sword.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>

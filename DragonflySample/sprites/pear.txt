@@ -1,0 +1,33 @@
+<HEADER>
+frames 4
+width 5
+height 4
+color green
+slowdown 4
+transparency #
+</HEADER>
+<BODY>
+##(##
+#/ \#
+(   )
+#`"'#
+end
+##|##
+#/ \#
+(   )
+#`"'#
+end
+##)##
+#/ \#
+(   )
+#`"'#
+end
+##|##
+#/ \#
+(   )
+#`"'#
+end
+</BODY>
+<FOOTER>
+version 1
+</FOOTER>
