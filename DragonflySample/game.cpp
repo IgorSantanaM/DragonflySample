@@ -34,6 +34,9 @@ int main(int argc, char* argv[]) {
     // Dragonfly splash screen.
     df::splash();
 
+    // Fruit Ninja splash screen.
+    splash();
+
     // Create initial game objects.
     populateWorld();
 

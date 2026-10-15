@@ -17,7 +17,9 @@
 // Game includes.
 #include "Fruit.h"
 #include "Grocer.h"
+#include "Kudos.h"
 #include "Sword.h"
+#include "Timer.h"
 #include "util.h"
 
 // Constructor.
@@ -90,10 +92,29 @@ int Sword::step(const df::EventStep* p_e) {
         if (lineIntersectsBox(line, box)) {
             df::EventCollision c(this, p_o, p_o->getPosition());
             p_o->eventHandler(&c);
+            m_sliced += 1;
+
+            // Spawn kudos for combo.
+            if (m_sliced > 2 && m_sliced > m_old_sliced)
+                new Kudos();
+
+            m_old_sliced = m_sliced;
 
         } // End of box-line check.
 
     } // End of loop through all objects.
+
+    // If travel far enough, play "swipe" sound.
+    float dist = df::distance(getPosition(), m_old_position);
+    if (dist > 15) {
+        std::string sound = "swipe-" + std::to_string(rand() % 7 + 1);
+        play_sound(sound);
+    }
+
+    // Lose points for distance traveled.
+    int penalty = -1 * (int)(dist / 10.0f);
+    df::EventView ev("Points", penalty, true);
+    WM.onEvent(&ev);
 
     m_old_position = getPosition();
 
@@ -120,7 +141,19 @@ int Sword::keyboard(const df::EventKeyboard* p_e) {
     if (p_e->getKey() == df::Keyboard::Q &&
         p_e->getKeyboardAction() == df::KEY_PRESSED) {
 
-        GM.setGameOver(true);
+        // Tell Grocer game over.
+        df::ObjectList ol = WM.objectsOfType(GROCER_STRING);
+        if (ol.getCount() > 0 && (dynamic_cast <Grocer*> (ol[0]))) {
+            Grocer* p_g = dynamic_cast <Grocer*> (ol[0]);
+            p_g->gameOver();
+        }
+
+        // Set Timer to 0.
+        ol = WM.objectsOfType(TIMER_STRING);
+        if (ol.getCount() > 0 && (dynamic_cast <Timer*> (ol[0]))) {
+            Timer* p_t = dynamic_cast <Timer*> (ol[0]);
+            p_t->setValue(0);
+        }
 
         return 1;
     }

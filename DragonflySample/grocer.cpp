@@ -13,6 +13,7 @@
 
 // Game includes.
 #include "Fruit.h"
+#include "GameOver.h"
 #include "Grocer.h"
 
 Grocer::Grocer() {
@@ -75,5 +76,14 @@ int Grocer::step(const df::EventStep* p_e) {
 
 // Do game over actions.
 void Grocer::gameOver() {
-    GM.setGameOver();
+    // Create G-A-M-E O-V-E-R object.
+    new GameOver();
+
+    // Destroy all remaining Fruit (no points).
+    df::ObjectList ol = WM.solidObjects();
+    for (int i = 0; i < ol.getCount(); i++)
+        if (dynamic_cast <Fruit*>(ol[i]))
+            WM.markForDelete(ol[i]);
+
+    WM.markForDelete(this);
 }
