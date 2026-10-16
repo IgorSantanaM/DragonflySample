@@ -14,10 +14,13 @@ const std::string TIMER_STRING = "Time";
 class Timer : public df::ViewObject {
 
 private:
+	int m_ticks = 0;
 	// Handle step events.
 	int step(const df::EventStep* p_e);
 
 public:
+	int serialize(std::stringstream* stream, unsigned int attr = 0) override;
+	int deserialize(std::stringstream* stream, unsigned int* attr = nullptr) override;
 
 	// Constructor.
 	Timer();

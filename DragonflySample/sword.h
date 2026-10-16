@@ -34,6 +34,9 @@ private:
 
 public:
 
+	int serialize(std::stringstream* stream, unsigned int attr = 0) override;
+	int deserialize(std::stringstream* stream, unsigned int* attr = nullptr) override;
+
 	// Constructor.
 	Sword();
 

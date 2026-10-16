@@ -141,6 +141,7 @@
     <ClCompile Include="kudos.cpp" />
     <ClCompile Include="points.cpp" />
     <ClCompile Include="splash.cpp" />
+    <ClCompile Include="state.cpp" />
     <ClCompile Include="sword.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="util.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="kudos.h" />
     <ClInclude Include="points.h" />
     <ClInclude Include="splash.h" />
+    <ClInclude Include="state.h" />
     <ClInclude Include="sword.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="util.h" />

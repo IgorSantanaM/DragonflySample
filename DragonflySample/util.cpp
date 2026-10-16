@@ -1,3 +1,4 @@
+#include "state.h"
 //
 // util.cpp
 //
@@ -63,6 +64,7 @@ void loadResources(void) {
 ///////////////////////////////////////////////
 // Populate the world with game objects.
 void populateWorld(void) {
+    new State();
     new Grocer();
     new Points;
     new Sword();

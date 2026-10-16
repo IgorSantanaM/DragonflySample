@@ -87,3 +87,24 @@ void Grocer::gameOver() {
 
     WM.markForDelete(this);
 }
+
+// Preserve base attributes and the game-specific state.
+int Grocer::serialize(std::stringstream* stream, unsigned int attr) {
+    if (df::Object::serialize(stream, attr) < 0) return -1;
+    stream->write(reinterpret_cast<const char*>(&m_spawn), sizeof(m_spawn));
+    stream->write(reinterpret_cast<const char*>(&m_wave), sizeof(m_wave));
+    stream->write(reinterpret_cast<const char*>(&m_wave_spawn), sizeof(m_wave_spawn));
+    stream->write(reinterpret_cast<const char*>(&m_wave_end), sizeof(m_wave_end));
+    stream->write(reinterpret_cast<const char*>(&m_wave_speed), sizeof(m_wave_speed));
+    return *stream ? 0 : -1;
+}
+
+int Grocer::deserialize(std::stringstream* stream, unsigned int* attr) {
+    if (df::Object::deserialize(stream, attr) < 0) return -1;
+    stream->read(reinterpret_cast<char*>(&m_spawn), sizeof(m_spawn));
+    stream->read(reinterpret_cast<char*>(&m_wave), sizeof(m_wave));
+    stream->read(reinterpret_cast<char*>(&m_wave_spawn), sizeof(m_wave_spawn));
+    stream->read(reinterpret_cast<char*>(&m_wave_end), sizeof(m_wave_end));
+    stream->read(reinterpret_cast<char*>(&m_wave_speed), sizeof(m_wave_speed));
+    return *stream ? 0 : -1;
+}

@@ -166,3 +166,22 @@ int Sword::keyboard(const df::EventKeyboard* p_e) {
 int Sword::draw() {
     return DM.drawCh(getPosition(), SWORD_CHAR, m_color);
 }
+
+// Preserve base attributes and the game-specific state.
+int Sword::serialize(std::stringstream* stream, unsigned int attr) {
+    if (df::Object::serialize(stream, attr) < 0) return -1;
+    stream->write(reinterpret_cast<const char*>(&m_color), sizeof(m_color));
+    m_old_position.serialize(stream);
+    stream->write(reinterpret_cast<const char*>(&m_sliced), sizeof(m_sliced));
+    stream->write(reinterpret_cast<const char*>(&m_old_sliced), sizeof(m_old_sliced));
+    return *stream ? 0 : -1;
+}
+
+int Sword::deserialize(std::stringstream* stream, unsigned int* attr) {
+    if (df::Object::deserialize(stream, attr) < 0) return -1;
+    stream->read(reinterpret_cast<char*>(&m_color), sizeof(m_color));
+    m_old_position.deserialize(stream);
+    stream->read(reinterpret_cast<char*>(&m_sliced), sizeof(m_sliced));
+    stream->read(reinterpret_cast<char*>(&m_old_sliced), sizeof(m_old_sliced));
+    return *stream ? 0 : -1;
+}

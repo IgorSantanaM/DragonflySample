@@ -1,0 +1,24 @@
+Save/load controls
+==================
+Press S during gameplay to save to savegame.df in the current working directory.
+Press L to restore it. Visual Studio normally uses the DragonflySample source
+folder as the working directory.
+
+The snapshot includes all Fruit objects, Sword, Grocer, Points, and Timer.
+Engine serialization preserves their base attributes; derived serializers add
+fruit spawn status, sword combo/trail state, wave countdowns, and the timer's
+partial-second countdown. State, particles, Kudos, and splash screens are omitted.
+Old fruit are moved outside the world before deferred deletion so loading does
+not produce explosions or missed-fruit penalties. Missing/invalid saves are
+reported to dragonfly.log. The binary format is intended for this game build.
+
+Validation
+==========
+Build DragonflySample/serialization-tests.vcxproj with Debug/x64. Run
+ tests/bin/serialization-tests.exe from tests/bin after copying df-font.ttf,
+ sprites/, and sounds/ there from DragonflySample/. The test uses its own save
+file and verifies complete serialized round trips, all fruit types, keyboard
+routing, repeated loads, and rejection of truncated/invalid saves.
+
+Assignment reference:
+https://web.cs.wpi.edu/~cs411x/c26/projects/proj1-serialize/
