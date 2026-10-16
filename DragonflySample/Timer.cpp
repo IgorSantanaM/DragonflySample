@@ -39,10 +39,13 @@ int Timer::eventHandler(const df::Event* p_e) {
 int Timer::step(const df::EventStep* p_e) {
 
     // Countdown the seconds.
-    if (p_e->getStepCount() % 30 == 0 && getValue() > 0)
+    if (getValue() <= 0) return 1;
+    if (++m_ticks >= 30 && getValue() > 0)
         setValue(getValue() - 1);
     else
         return 1;
+
+    m_ticks = 0;
 
     // Sound warning as time expires.
     if (getValue() < 13 && getValue() % 2 == 0 ||
@@ -59,4 +62,15 @@ int Timer::step(const df::EventStep* p_e) {
 
     // Handled.
     return 1;
+}
+
+int Timer::serialize(std::stringstream* stream, unsigned int attr) {
+    if (df::ViewObject::serialize(stream, attr) < 0) return -1;
+    stream->write(reinterpret_cast<const char*>(&m_ticks), sizeof(m_ticks));
+    return *stream ? 0 : -1;
+}
+int Timer::deserialize(std::stringstream* stream, unsigned int* attr) {
+    if (df::ViewObject::deserialize(stream, attr) < 0) return -1;
+    stream->read(reinterpret_cast<char*>(&m_ticks), sizeof(m_ticks));
+    return *stream && m_ticks >= 0 && m_ticks < 30 ? 0 : -1;
 }

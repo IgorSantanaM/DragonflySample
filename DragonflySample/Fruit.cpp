@@ -150,3 +150,16 @@ void Fruit::start(float speed) {
     setDirection(velocity);
     setSpeed(speed);
 }
+
+// Preserve base attributes and the game-specific state.
+int Fruit::serialize(std::stringstream* stream, unsigned int attr) {
+    if (df::Object::serialize(stream, attr) < 0) return -1;
+    stream->write(reinterpret_cast<const char*>(&m_first_out), sizeof(m_first_out));
+    return *stream ? 0 : -1;
+}
+
+int Fruit::deserialize(std::stringstream* stream, unsigned int* attr) {
+    if (df::Object::deserialize(stream, attr) < 0) return -1;
+    stream->read(reinterpret_cast<char*>(&m_first_out), sizeof(m_first_out));
+    return *stream ? 0 : -1;
+}
